@@ -8,9 +8,9 @@
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet weak var userID: UITextField!
     @IBOutlet weak var titleTF: UITextField!
-    @IBOutlet weak var bodyTF: UITextField!
+    @IBOutlet weak var priceTF: UITextField!
+    @IBOutlet weak var brandTF: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,14 +23,14 @@ class ViewController: UIViewController {
 
 extension ViewController{
     func setupPostMethod(){
-        guard let userid = self.userID.text else { return }
-        guard let titletf = self.titleTF.text else { return }
-        guard let bodytf = self.bodyTF.text else { return }
+        guard let titleTT = self.titleTF.text else { return }
+        guard let priceTT = self.priceTF.text else { return }
+        guard let brandTT = self.brandTF.text else { return }
         
-        if let url = URL(string: "https://jsonplaceholder.typicode.com/posts/"){
+        if let url = URL(string: "https://dummyjson.com/products/add"){
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
-            let parameter : [String : Any] = ["userId" : userid, "title" : titletf, "body" : bodytf]
+            let parameter : [String : Any] = ["title" : titleTT, "price" : priceTT, "brand" : brandTT]
             request.httpBody = parameter.percentEscaped().data(using: .utf8)
             URLSession.shared.dataTask(with: request){ (data, response, error) in
                 guard let data = data else {
